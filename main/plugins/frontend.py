@@ -94,7 +94,18 @@ async def clone(event):
                     else:
                         msg_id = -1
                 m = msg_id
-                await ggn_new(userbot, Bot, event.sender_id, edit.id, link, m, file_name)
+                msg = await get_msg(userbot, link, m)
+                if msg:
+                    media = msg.media
+                    if media:
+                        caption = msg.text
+                        if caption and len(caption) > 1024:  # Telegram's caption limit is 1024 characters
+                            caption = caption[:1024] + "..."  # truncate the caption
+                        await gagan.send_media(event.sender_id, media, caption=caption, file_name=file_name)
+                    else:
+                        await gagan.send_message(event.sender_id, "Media not found!")
+                else:
+                    await gagan.send_message(event.sender_id, "Message not found!")
 
         except FloodWait as fw:
             await gagan.send_message(event.sender_id, f'Try again after {fw.value} seconds due to floodwait from telegram.')

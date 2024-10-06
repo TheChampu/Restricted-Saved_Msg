@@ -306,7 +306,7 @@ async def get_bulk_msg(userbot, client, sender, msg_link, i):
     file_name = ''
     await get_msg(userbot, client, sender, x.id, msg_link, i, file_name) 
 
-async def ggn_new(userbot, client, sender, edit_id, msg_link, i, file_n):
+async def ggn_new(userbot, Bot, sender_id, edit_id, link, msg_id, file_name):
     edit = ""
     chat = ""
     msg_id = int(i)
